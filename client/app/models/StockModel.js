@@ -7,9 +7,12 @@ var StockModel = Backbone.Model.extend({
     if (response.length !== 0) {
       this.set('history', response); // "history" is just an array of dates, stock prices, etc
       this.set('amount', parseFloat(this.get('amount')));
+      this.set('shares', parseFloat(this.get('shares')));
+      var sAmount = this.get('shares') * this.get('history')[0].adjClose;
       var nShares = this.get('amount') / this.get('history')[0].adjClose;
       _.each(this.get('history'), function(snapshot) {
         snapshot.nShares = nShares; // keeps track of number of shares for each data point
+        snapshot.sAmount = sAmount;
       });
     } else {
       this.destroy(); // if there is no data, does not add to collection.
@@ -60,6 +63,32 @@ var StockModel = Backbone.Model.extend({
     this.trigger('edited', this); // alerts views to rerender
   },
 
+  updateShares: function(history, shares){
+    var context = this;
+    var sAmount = shares * history[0].adjClose;
+
+    // updates new and existing history with number of shares
+    _.each(history, function(snapshot) {
+      snapshot.sAmount = sAmount;
+    });
+    _.each(this.get('history'), function(snapshot) {
+      snapshot.sAmount += sAmount; // updates old data points with extra shares
+    });
+
+    // first index of the stock history where there's overlap
+    var existingIndex = _.findIndex(history, function(snapshot) {
+      return (new Date(snapshot.date) >= context.getStartDate());
+    });
+
+    // concatenate stock histories
+    var earlyHistory = history.slice(0, existingIndex);
+    var updatedHistory = earlyHistory.concat(this.get('history'));
+    this.set('history', updatedHistory);
+
+    this.set('shares', this.get('shares') + shares); // total amount invested in this stock
+    this.trigger('edited', this); // alerts views to rerender
+  },
+
   // adds shares to existing stock with a complete history
   addTo: function(startDate, amount) {
     this.set('amount', this.get('amount') + amount);
@@ -78,18 +107,18 @@ var StockModel = Backbone.Model.extend({
     this.trigger('edited', this);
   },
 
-  addStock: function(startDate, amount) {
-    this.set('amount', this.get('amount') + amount);
+  addShares: function(startDate, shares) {
+    this.set('shares', this.get('shares') + shares);
     var context = this;
     startDate = new Date(startDate);
     var firstExisting = _.find(this.get('history'), function(snapshot) {
       return (startDate <= new Date(snapshot.date));
     });
-    var nShares = amount / firstExisting.adjClose;
+    var sAmount = shares * firstExisting.adjClose;
     _.each(this.get('history'), function(snapshot) {
       var date = new Date(snapshot.date);
       if (startDate <= date) {
-        snapshot.nShares = snapshot.nShares + nShares;
+        snapshot.sAmount = snapshot.sAmount + sAmount;
       }
     });
     this.trigger('edited', this);

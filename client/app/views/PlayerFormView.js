@@ -17,7 +17,16 @@ var PlayerFormView = Backbone.View.extend({
                   <div class="help-block with-errors"></div>\
                 </div>\
               </div>\
+              <button type="submit" id="setInvBtn" class="btn btn-primary btn-block submit-button">Set</button>\
             </form>\
+          </form>\
+        </div> \
+      </div>\
+    </div>\
+    <div class="container"> \
+      <div class="row"> \
+        <div class="col-sm-6 well text-center" id="select-form">\
+          <form data-toggle="validator" role="form">\
             <div class="form-group"> \
               <label for="date">Investment Date</label>\
               <input pattern="^(?!.*00/).*$" type="date" id="date" class="form-control" data-error="Invalid Date" required>\
@@ -28,12 +37,11 @@ var PlayerFormView = Backbone.View.extend({
               <div class="error-message help-block with-errors"></div>\
             </div> \
            <label for="amount">No. of Shares</label>\
-           <form class="form-inline">\
-             <input type="number" id="shares" class="form-control" data-error="Invalid amount" required>\
-             <button type="submit" id="addBtn" class="btn submit-button">Add</button>\
-           </form>\
+           <div class="form-group"> \
+             <input type="number" id="shares" class="form-control">\
+           </div>\
+           <button type="submit" id="addBtn" class="btn btn-primary btn-block submit-button">Add</button>\
            <div class="help-block with-errors"></div>\
-           <button type="submit" id="submitGameBtn" class="btn btn-primary btn-block submit-button">Submit</button>\
           </form>\
         </div> \
       </div> \
@@ -48,47 +56,47 @@ var PlayerFormView = Backbone.View.extend({
 
   // TODO: Add event handlers
   events:{
-    'keypress #amount': function(){console.log("Keypressing")},
-    'click #addBtn': function(){console.log("Added")},
-    'click #submitGameBtn': function(){console.log("Submitted")}
+    'click #addBtn': 'handleAdd',
+    'click #setInvBtn': 'handleSet'
   },
 
-  // TODO: When does this get called?
   clearErrors: function(){
     $('error-message').text('');
   },
 
-  handleSubmit: function(e){
+  handleAdd: function(e){
     e.preventDefault;
-    if(this.$('form')[0].checkValidity()){
+    if(this.$('form')[1].checkValidity()){
       var d = new Date();
       var requestStock = {
         symbol: this.$('#symbol').val().toUpperCase(),
         from: this.$('#date').val(),
         shares: this.$('#shares').val(),
         to: d.toISOString().slice(0, 10)
-      }
+      };
+      this.handleDuplicates(requestStock);
     }else{
-      this.$('form')[0].reset();
+      this.$('form')[1].reset();
     }
     this.$('#symbol').val('');
-    this.$('#date').val('')
-    this.$('#shares').val('')
+    this.$('#date').val('');
+    this.$('#shares').val('');
   },
 
   handleDuplicates: function(params) {
+    console.log(params);
     var stocks = this.collection;
     var existingStock = stocks.findStock(params.symbol);
     var startDate = new Date(params.from);
     if (existingStock) {
       if (existingStock.getStartDate() <= startDate) {
-        // no need to make an addtional API call; just adds shares to the stock
+        // no need to make an addtional API call; just adds total purchase price to the stock
         // starting with the new start date
-        existingStock.addStock(startDate, parseFloat(params.amount));
+        existingStock.addShares(startDate, parseFloat(params.shares));
       } else {
         // makes API call to get earlier stock history, then updates model
         stocks.getNewStockTrajectory(params).then(function(resp) {
-        existingStock.update(resp, parseFloat(params.amount));
+          existingStock.updateShares(resp, parseFloat(params.shares));
         });
       }
     } else {
@@ -98,8 +106,15 @@ var PlayerFormView = Backbone.View.extend({
     }
   },
 
-  handleAdd: function(e){
+  handleSet: function(e){
     e.preventDefault;
+    if(this.$('form')[0].checkValidity()){
+      var investment = this.$('#amount').val();
+      console.log(investment);
+    }else{
+      this.$('form')[0].reset();
+    }
+    this.$('#amount').val('');
   },
 
   render: function(){

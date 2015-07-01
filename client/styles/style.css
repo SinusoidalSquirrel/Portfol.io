@@ -264,11 +264,3 @@ text.tag {
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
-/* Player Input Form */
-#shares{
-  width: 78%;
-}
-
-#addBtn{
-  width: 20%;
-}
