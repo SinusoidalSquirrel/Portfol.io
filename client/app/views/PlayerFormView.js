@@ -1,8 +1,8 @@
 // Backbone view for the player input form
 var PlayerFormView = Backbone.View.extend({
-	className: 'form container',
+  className: 'form container',
 
-	divText: '\
+  divText: '\
     <div class="container"> \
       <div class="row"> \
         <div class="col-sm-6 well text-center" id="select-form">\
@@ -21,31 +21,89 @@ var PlayerFormView = Backbone.View.extend({
             <div class="form-group"> \
               <label for="date">Investment Date</label>\
               <input pattern="^(?!.*00/).*$" type="date" id="date" class="form-control" data-error="Invalid Date" required>\
-              <div class="help-block with-errors">After 1972</div>\
             </div> \
             <label for="symbol">Stock</label>\
             <div class="form-group"> \
               <input pattern="[a-zA-Z0-9-]{1,6}" maxlength="6" type="text" id="symbol" class="form-control" placeholder="Symbol" data-error="Invalid Stock Ticker" required>\
               <div class="error-message help-block with-errors"></div>\
-              <button type="submit" class="btn btn-xs submit-button">Add</button>\
             </div> \
-            <div class="form-group"> \
-               <label for="amount">Shares</label>\
-               <input type="number" id="amount" class="form-control" data-error="Invalid amount" required>\
-               <div class="help-block with-errors"></div>\
-            </div> \
-            <button type="submit" class="btn btn-xs submit-button">Submit</button>\
+           <label for="amount">No. of Shares</label>\
+           <form class="form-inline">\
+             <input type="number" id="shares" class="form-control" data-error="Invalid amount" required>\
+             <button type="submit" id="addBtn" class="btn submit-button">Add</button>\
+           </form>\
+           <div class="help-block with-errors"></div>\
+           <button type="submit" id="submitGameBtn" class="btn btn-primary btn-block submit-button">Submit</button>\
           </form>\
         </div> \
       </div> \
     </div>',
 
-	initialize: function(){
-		this.render();
-	},
+  initialize: function(){
+    this.render();
+    this.collection.on('destroy', function() {
+      this.$('.error-message').text('Invalid Stock Ticker');
+    }, this);
+  },
 
-	render: function(){
-		return this.$el.html(this.divText);
-	}
+  // TODO: Add event handlers
+  events:{
+    'keypress #amount': function(){console.log("Keypressing")},
+    'click #addBtn': function(){console.log("Added")},
+    'click #submitGameBtn': function(){console.log("Submitted")}
+  },
+
+  // TODO: When does this get called?
+  clearErrors: function(){
+    $('error-message').text('');
+  },
+
+  handleSubmit: function(e){
+    e.preventDefault;
+    if(this.$('form')[0].checkValidity()){
+      var d = new Date();
+      var requestStock = {
+        symbol: this.$('#symbol').val().toUpperCase(),
+        from: this.$('#date').val(),
+        shares: this.$('#shares').val(),
+        to: d.toISOString().slice(0, 10)
+      }
+    }else{
+      this.$('form')[0].reset();
+    }
+    this.$('#symbol').val('');
+    this.$('#date').val('')
+    this.$('#shares').val('')
+  },
+
+  handleDuplicates: function(params) {
+    var stocks = this.collection;
+    var existingStock = stocks.findStock(params.symbol);
+    var startDate = new Date(params.from);
+    if (existingStock) {
+      if (existingStock.getStartDate() <= startDate) {
+        // no need to make an addtional API call; just adds shares to the stock
+        // starting with the new start date
+        existingStock.addStock(startDate, parseFloat(params.amount));
+      } else {
+        // makes API call to get earlier stock history, then updates model
+        stocks.getNewStockTrajectory(params).then(function(resp) {
+        existingStock.update(resp, parseFloat(params.amount));
+        });
+      }
+    } else {
+      /* Create will create a new stock in the collection
+       and send a request for the pertinent information */
+      this.collection.create(params);
+    }
+  },
+
+  handleAdd: function(e){
+    e.preventDefault;
+  },
+
+  render: function(){
+    return this.$el.html(this.divText);
+  }
 
 });

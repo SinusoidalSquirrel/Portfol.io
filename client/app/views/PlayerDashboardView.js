@@ -6,6 +6,7 @@ var PlayerDashboardView = Backbone.View.extend({
 		// initialize all the views that will be appended to the dashboard view
 		this.playerFormView = new PlayerFormView({collection: this.collection});
 		this.playerPortfolioView = new PlayerPortfolioView({collection: this.collection});
+
 		this.render();
 	},
 

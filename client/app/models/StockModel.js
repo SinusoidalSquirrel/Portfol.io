@@ -78,9 +78,26 @@ var StockModel = Backbone.Model.extend({
     this.trigger('edited', this);
   },
 
+  addStock: function(startDate, amount) {
+    this.set('amount', this.get('amount') + amount);
+    var context = this;
+    startDate = new Date(startDate);
+    var firstExisting = _.find(this.get('history'), function(snapshot) {
+      return (startDate <= new Date(snapshot.date));
+    });
+    var nShares = amount / firstExisting.adjClose;
+    _.each(this.get('history'), function(snapshot) {
+      var date = new Date(snapshot.date);
+      if (startDate <= date) {
+        snapshot.nShares = snapshot.nShares + nShares;
+      }
+    });
+    this.trigger('edited', this);
+  },
+
   // may not be needed
   getStartDate: function() {
-    return new Date(this.get('history')[0].date);
+    return new Date(this.get('history')[0].date); 
   },
 
   // the last date for which we have data (should be close to now)
