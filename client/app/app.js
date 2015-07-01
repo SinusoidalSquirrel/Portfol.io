@@ -14,6 +14,10 @@
     window.location.hash = 'front';
   });
   
+  router.on('route:game', function(){
+    appView.game();
+  });
+  
   router.on('route:signup',function(){
     appView.signupView.$('.error-message').text('');
     appView.signup();
@@ -23,6 +27,7 @@
     appView.signinView.$('.error-message').text('');
     appView.signin();
   });
+
 
   router.on('route:portfolios',function(){
     $.ajax({

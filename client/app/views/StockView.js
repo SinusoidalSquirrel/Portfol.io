@@ -1,5 +1,5 @@
 // Backbone view for stock information
-var StockView = Backbone.View.extend({
+var StockView = Backbone.View.extend({ 
 
   template: _.template('\
      <div class="info-item row">\
