@@ -246,7 +246,13 @@ text.tag {
   stroke: steelblue;
 }
 
-
+#chartdiv {  
+  width   : 50%;
+  height    : 500px;
+  font-size : 20px;
+  font-style: black;
+  float: right;
+}     
 /*boilerplate to show scroll bar*/
 ::-webkit-scrollbar {
   -webkit-appearance: none;

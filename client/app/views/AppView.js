@@ -36,6 +36,7 @@ var AppView = Backbone.View.extend({
     this.aboutusView = new AboutUsView();
     this.signupView = new SignupView({model: this.model});
     this.signinView = new SigninView({model: this.model});
+    // this.pieChartView = new PieChartView({model: this.model});
     this.render();
     window.location.hash = 'front';
   },
