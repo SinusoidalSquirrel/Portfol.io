@@ -10,23 +10,31 @@ var PieChartView = Backbone.View.extend({
     },
 
 
-    pieChart: function(stock){
+    pieChart: function(Stocks){
+       var newData = Stocks.models
+       var data = [];
+       for(var i = 0; i < newData.length; i++){
+        data.push({"Symbol": newData[i].attributes.symbol, "Amount": newData[i].attributes.amount});
+       }
+       // var data = [{"Symbol": "AAPL", "Amount":2000}, {"Symbol": "TSLA", "Amount":20}, {"Symbol": "IBM", "Amount":432.50}, {"Symbol": "LMD", "Amount":394}]
+       // data.push({"Symbol": newData.symbol, "Amount": newData.amount})
+        console.log(data);
             var chart = AmCharts.makeChart( "chartdiv", {
               "type": "pie",
               "theme": "light",
-              "dataProvider": [{"Stock": "AAPL", "Amount":2000}, {"Stock": "TSLA", "Amount":20}, {"Stock": "IBM", "Amount":432.50}, {"Stock": "LMD", "Amount":394}],
+              "dataProvider": data,
               "valueField": "Amount",
-              "titleField": "Stock",
+              "titleField": "Symbol",
               "export": {
                 "enabled": true
               },
-              "groupPercent": 5
+              // "groupPercent": 5
             });
+            console.log(Stocks)
     },
 
 
       render: function() {
-        console.log(this.collection)
         this.$el.hide();
         this.$el.empty();
         if (this.collection.length > 0) {  
