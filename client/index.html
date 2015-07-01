@@ -10,6 +10,9 @@
     <script src="assets/backbone-min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
     <script src="assets/validator.min.js"></script>
+    <script src="http://www.amcharts.com/lib/3/amcharts.js"></script>
+    <script src="http://www.amcharts.com/lib/3/pie.js"></script>
+    <script src="http://www.amcharts.com/lib/3/themes/dark.js"></script>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/bootstrap.icon-large.min.css">
     <link rel="stylesheet" href="styles/style.css">
@@ -17,7 +20,10 @@
   </head>
   <body>
     <div class="container-fluid" id="main"></div>
-
+    <div id="chartdiv"></div>
+    <!-- <div id="chartContainer"></div> -->
+    <!-- // <script src="http://d3js.org/d3.v3.4.8.js"></script> -->
+    <!-- // <script src="http://dimplejs.org/dist/dimple.v2.1.2.min.js"></script> -->
     <!-- Models -->
     <script src="app/models/StockModel.js"></script>
     <script src="app/models/PortfolioModel.js"></script>
@@ -39,7 +45,7 @@
     <script src="app/views/AboutUsView.js"></script>
     <script src="app/views/PortfolioView.js"></script>
     <script src="app/views/PortfoliosView.js"></script>
-
+    <script src="app/views/PieChartView.js"></script>
     <!-- Router -->
     <script src="app/router/Router.js"></script>
 
