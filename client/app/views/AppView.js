@@ -7,6 +7,7 @@ var AppView = Backbone.View.extend({
              <div class="container-fluid"> \
                <a href="#front" class="navbar-brand">Portfol.io</a> \
                <ul class="nav nav-pills navbar-nav navbar-right"> \
+                 <li><a href="#game">Game</a></li> \
                  <li><a href="#signup">Sign Up</a></li> \
                  <li><a href="#signin">Sign In</a></li> \
                  <li><a href="#about">About Us</a></li> \
@@ -32,7 +33,8 @@ var AppView = Backbone.View.extend({
   initialize: function(){
     this.formView = new FormView({collection: this.collection});
     this.dashboardView = new DashboardView({collection: this.collection});
-    
+    this.playerDashboardView = new PlayerDashboardView({collection: this.collection});
+
     this.aboutusView = new AboutUsView();
     this.signupView = new SignupView({model: this.model});
     this.signinView = new SigninView({model: this.model});
@@ -52,6 +54,10 @@ var AppView = Backbone.View.extend({
     this.formView.delegateEvents();
     this.dashboardView.delegateEvents();
     this.dashboardView.infoView.delegateEvents();
+    this.playerDashboardView.delegateEvents();
+    this.playerDashboardView.playerFormView.delegateEvents();
+    this.playerDashboardView.playerPortfolioView.delegateEvents();
+
     var navbar = $(this.navDiv);
     if (this.model.get('signedin')) {
       navbar = this.template(this.model.attributes);
@@ -77,6 +83,10 @@ var AppView = Backbone.View.extend({
         context.renderBody(context.formView);
       }
     });
+  },
+
+  game: function() {
+    this.renderBody(this.playerDashboardView, false);
   },
 
   signup: function() {
