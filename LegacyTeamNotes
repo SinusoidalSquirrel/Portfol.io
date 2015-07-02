@@ -1,0 +1,46 @@
+Notes from Sinusoudal Squirrel on this project:
+
+Bryan:
+Index.html loads all backbone files.
+App.js - initiates AppModel, Stocks (its collection), AppView ({model: app, collection: stocks}).
+          Setup router.on and renders appropriate pages
+
+AppView -
+  // initiates top-level views
+  - this.formView = new FormView({collection: this.collection});
+  - this.dashboardView = new DashboardView({collection: this.collection});
+  - this.aboutusView = new AboutUsView();
+  - this.signupView = new SignupView({model: this.model});
+  - this.signinView = new SigninView({model: this.model});
+  - this.render();
+  - SignupView({model: this.model});
+  - Signin, signup, aboutus views are routed by app.js
+
+- FormView
+  - displays input forms
+
+- DashboardView -
+  - this.graphView = new GraphView({collection: this.collection});
+  - this.infoView = new InfoView({collection: this.collection});
+
+
+Portfolio
+  - view after user signed in.  Save Portfolio, and rerender Portfolio
+
+InfoView -
+  - This is the portfolio window on bottom left corner.
+
+
+
+Portfolios
+Stocks
+PortfolioModel -
+  Get porfolio "name". Post to Server and get return data of "stocks". For each of "stocks", set attributes "to, from, amount" to stock database info.
+StockModel
+
+
+// gameBoard View:
+* create Guru Portfolio
+* Get Current User's portfolio and compare with guro portfolio
+  * compute against X-years ago, get Gain/Loss, compare against Guru
+  * 

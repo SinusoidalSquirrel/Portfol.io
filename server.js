@@ -13,6 +13,7 @@ var User = require('./db/models/user');
 var Stocks = require('./db/collections/stocks');
 var Stock = require('./db/models/stock');
 var Portfolio = require('./db/models/portfolio');
+var GuruInit = require('./GuruInit.js');
 
 
 
@@ -123,7 +124,12 @@ app.post('/stocks', function(req, res) {
 
 app.use('/api/stocks', handler.getStocks);
 
+
 var port = process.env.PORT || 8080;
 
 app.listen(port);
 console.log('Listening to: ' + port);
+
+
+// Bryan: Initiatlize GuruInit to add Gurus and their portfolio stocks to database;
+setTimeout(GuruInit,2000);

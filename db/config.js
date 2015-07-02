@@ -51,6 +51,7 @@ db.knex.schema.hasTable('stocks').then(function(exists) {
       stock.integer('portfolios_id').unsigned().references('id').inTable('portfolios');
       stock.string('symbol', 20);
       stock.integer('amount', 255);
+      stock.integer('shares', 255);
       stock.string('from', 10);
       stock.string('to', 10);
       stock.timestamps();
