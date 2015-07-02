@@ -29,6 +29,7 @@
   });
 
 
+
   router.on('route:portfolios',function(){
     $.ajax({
       url: '/auth',
@@ -63,4 +64,8 @@
     appView.compareViewPage();
   });
 
+  router.on('route:overview',function(){
+    appView.overview();
+  });
+  
   Backbone.history.start();

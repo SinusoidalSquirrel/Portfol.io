@@ -8,10 +8,11 @@ var AppView = Backbone.View.extend({
                <a href="#front" class="navbar-brand">Portfol.io</a> \
                <ul class="nav nav-pills navbar-nav navbar-right"> \
                  <li><a href="#game">Game</a></li> \
+                 <li><a href="#overview">Stock Overviews</a></li> \
+                 <li><a href="#compare">Compare to Gurus</a></li> \
                  <li><a href="#signup">Sign Up</a></li> \
                  <li><a href="#signin">Sign In</a></li> \
                  <li><a href="#about">About Us</a></li> \
-                 <li><a href="#compare">Compare to Gurus</a></li> \
                </ul> \
              </div> \
           </nav> \
@@ -36,6 +37,7 @@ var AppView = Backbone.View.extend({
     this.dashboardView = new DashboardView({collection: this.collection});
     this.playerDashboardView = new PlayerDashboardView({collection: this.collection});
     this.compareViewP = new CompareViewPage();  //Bryan: Added CompareViewPage.
+    this.graphOverview = new GraphDashboardView();
     this.aboutusView = new AboutUsView();
     this.signupView = new SignupView({model: this.model});
     this.signinView = new SigninView({model: this.model});
@@ -58,6 +60,7 @@ var AppView = Backbone.View.extend({
     this.playerDashboardView.delegateEvents();
     this.playerDashboardView.playerFormView.delegateEvents();
     this.playerDashboardView.playerPortfolioView.delegateEvents();
+    this.graphOverview.delegateEvents();
 
     var navbar = $(this.navDiv);
     if (this.model.get('signedin')) {
@@ -67,6 +70,7 @@ var AppView = Backbone.View.extend({
       navbar,
       view.$el,
       this.dashboardView.$el
+      // this.graphOverview.$el
     ]);
   },
 
@@ -102,6 +106,7 @@ var AppView = Backbone.View.extend({
     this.renderBody(this.aboutusView, false);
   },
 
+
   portfolios: function () {
     this.$el.empty();
     this.portfoliosView = new PortfoliosView({collection: this.collection});
@@ -119,4 +124,7 @@ var AppView = Backbone.View.extend({
     this.renderBody(this.compareViewP, false);
   },
 
+  overview: function(){
+    this.renderBody(this.graphOverview, false);
+  },
 });
