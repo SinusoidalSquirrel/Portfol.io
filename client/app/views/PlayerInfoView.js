@@ -2,12 +2,13 @@
 var PlayerInfoView = Backbone.View.extend({
   className: 'player-info-view col-xs-12 col-md-6',
 
-  divText: '<div class="well text-center" id="select-form">\
-        <div class="stock-summary">\
-          <div class="info-stat"> <strong>Buying Power</strong>: $<%=  %></div>\
-          <div class="info-stat"> <strong>Total Stock Purchased</strong>: $<%=  %></div>\
-        </div>\
-      </div>',
+  divText: '<div class="well text-center investment-info">\
+              <div class="stock-summary">\
+                <div class="investment-data"> <strong>Investment Remaining</strong>: $<%=  %></div>\
+                <div class="investment-data"> <strong>Total Stock Purchased</strong>: $<%=  %></div>\
+              </div>\
+            </div>\
+            <button type="submit" id="submitBtn" class="btn btn-primary btn-block submit-button">Invest</button>',
 
   initialize: function(){
     this.render();

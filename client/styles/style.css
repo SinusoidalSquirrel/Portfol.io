@@ -274,3 +274,19 @@ text.tag {
 .player-info-view {
   height: 490px;
 }
+
+.investment-info{
+  background-color: lavender;
+}
+
+.investment-data{
+  font-size: 21px;
+  margin: 10px;
+}
+
+.player-portfolio-view{
+  min-height: 490px;
+  border: 1px solid #d3d3d3;
+  border-radius: 4px;
+  padding: 15px;
+}
