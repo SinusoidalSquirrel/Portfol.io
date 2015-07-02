@@ -13,11 +13,11 @@
     appView.render();
     window.location.hash = 'front';
   });
-  
+
   router.on('route:game', function(){
     appView.game();
   });
-  
+
   router.on('route:signup',function(){
     appView.signupView.$('.error-message').text('');
     appView.signup();
@@ -57,6 +57,10 @@
         appView.render();
       }
     });
+  });
+
+  router.on('route:compare',function(){
+    appView.compareViewPage();
   });
 
   Backbone.history.start();

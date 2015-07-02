@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/sandworm-hr/sandworm-hr#readme",
   "dependencies": {
+    "async": "^1.3.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^2.9.30",
     "body-parser": "^1.13.1",
