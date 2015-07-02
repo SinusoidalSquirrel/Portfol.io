@@ -1,0 +1,33 @@
+.chart rect {
+  fill: steelblue;
+}
+.chart text {
+  fill: white;
+  font: 10px sans-serif;
+  text-anchor: end;
+}
+.buffett{
+  background-image: url('../images/buffet.jpg');
+  background-size: 100% 100%;
+  position: absolute;
+}
+.icahn{
+  background-image: url('../images/icahn.jpg');
+  background-size: 100% 100%;
+  position: absolute;
+}
+.soros{
+  background-image: url('../images/soros.jpg');
+  background-size: 100% 100%;
+  position: absolute;
+}
+.gates{
+  background-image: url('../images/gates.jpg');
+  background-size: 100% 100%;
+  position: absolute;
+}
+.sandp{
+  background-image: url('../images/sandp.png');
+  background-size: 100% 100%;
+  position: absolute;
+}
