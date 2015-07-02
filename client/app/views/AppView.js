@@ -66,7 +66,7 @@ var AppView = Backbone.View.extend({
     this.$el.append([
       navbar,
       view.$el,
-      // this.dashboardView.$el
+      this.dashboardView.$el
     ]);
   },
 
