@@ -271,3 +271,6 @@ text.tag {
   -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
+.player-info-view {
+  height: 490px;
+}

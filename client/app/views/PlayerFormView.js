@@ -1,6 +1,6 @@
-// Backbone view for the player input form
+// Backbone view for the player dashboard
 var PlayerFormView = Backbone.View.extend({
-  className: 'form container',
+  className: 'player-info-view col-xs-12 col-md-6 text-center form container',
 
   divText: '\
     <div class="container"> \
