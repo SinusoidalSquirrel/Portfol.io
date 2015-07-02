@@ -53,7 +53,6 @@ var PlayerPortfolioView = Backbone.View.extend({
     this.$el.append(this.divText);
 
     var stocks = this.collection.map(function(item){
-      console.log(item);
       return new PlayerStockView({model: item}).render();
     });
 
