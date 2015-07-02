@@ -9,6 +9,8 @@ var StockModel = Backbone.Model.extend({
       this.set('amount', parseFloat(this.get('amount')));
       this.set('shares', parseFloat(this.get('shares')));
       var sAmount = this.get('shares') * this.get('history')[0].adjClose;
+      this.set('price', this.get('history')[0].adjClose);
+      this.set('total', sAmount);
       var nShares = this.get('amount') / this.get('history')[0].adjClose;
       _.each(this.get('history'), function(snapshot) {
         snapshot.nShares = nShares; // keeps track of number of shares for each data point

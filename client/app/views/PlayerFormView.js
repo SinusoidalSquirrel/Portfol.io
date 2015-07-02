@@ -110,7 +110,7 @@ var PlayerFormView = Backbone.View.extend({
     e.preventDefault;
     if(this.$('form')[0].checkValidity()){
       var investment = this.$('#amount').val();
-      console.log(investment);
+      
     }else{
       this.$('form')[0].reset();
     }
