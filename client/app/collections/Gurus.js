@@ -4,4 +4,9 @@
 var Gurus = Backbone.Collection.extend({
   model: Guru,
 
+  url: '/gurulist',
+
+  initialize: function(){
+  },
+
 });

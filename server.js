@@ -122,6 +122,19 @@ app.post('/stocks', function(req, res) {
   });
 });
 
+app.post('/gurulist', function(req, res) {
+  new User().query('where', 'gurustatus', '=', 'yes').fetchAll().then(function(guruList) {
+    res.send(guruList);
+  });
+});
+
+app.get('/guruportfolio', function(req, res) {
+  var userid = req.body.id;
+  new Portfolio().query('where', 'users_id', '=', userid).fetchAll().then(function(portfolio_id) {
+    res.send(portfolio_id);
+  });
+});
+
 app.use('/api/stocks', handler.getStocks);
 
 
