@@ -12,7 +12,7 @@ var PlayerFormView = Backbone.View.extend({
                 <label for="amount">Investment Amount ($)</label>\
                 <div class="input-group">\
                   <div class="input-group-addon">$</div>\
-                  <input type="number" id="amount" class="form-control" placeholder="Amount" data-error="Invalid amount" required>\
+                  <input type="number" id="amount" class="form-control" placeholder="Amount">\
                   <div class="input-group-addon">.00</div>\
                   <div class="help-block with-errors"></div>\
                 </div>\
@@ -29,7 +29,7 @@ var PlayerFormView = Backbone.View.extend({
           <form data-toggle="validator" role="form">\
             <label for="symbol">Stock</label>\
             <div class="form-group"> \
-              <input pattern="[a-zA-Z0-9-]{1,6}" maxlength="6" type="text" id="symbol" class="form-control" placeholder="Symbol" data-error="Invalid Stock Ticker" required>\
+              <input pattern="[a-zA-Z0-9-]{1,6}" maxlength="6" type="text" id="symbol" class="form-control" placeholder="Symbol">\
               <div class="error-message help-block with-errors"></div>\
             </div> \
            <label for="amount">No. of Shares</label>\
@@ -58,7 +58,39 @@ var PlayerFormView = Backbone.View.extend({
   // TODO: Add event handlers
   events:{
     'click #addBtn': 'handleAdd',
-    'click #setInvBtn': 'handleSet'
+    'click #setInvBtn': 'handleSet',
+    'focus #symbol': 'search'
+  },
+
+  search: function(){
+    $(document).ready(function(){
+     $( "#symbol" ).autocomplete({
+          source: function( request, response ) {
+            $.ajax({
+                type: "GET",
+                dataType: "jsonp",
+                jsonp: "callback",
+                jsonpCallback: "YAHOO.Finance.SymbolSuggest.ssCallback",
+                data: {
+                    query: request.term
+                },
+                cache: true,
+                url: "http://d.yimg.com/autoc.finance.yahoo.com/autoc"
+            }); // .ajax
+            var YAHOO = window.YAHOO = {Finance: {SymbolSuggest: {}}};
+            YAHOO.Finance.SymbolSuggest.ssCallback = function (data) {
+              var mapped = $.map(data.ResultSet.Result, function (e, i) {
+                    return {
+                        label: e.symbol + ' (' + e.name + ')',
+                        value: e.symbol
+                    };
+                });
+                response(mapped);
+            };     
+          },
+          minLength: 2 
+        })
+    })
   },
 
   clearErrors: function(){
