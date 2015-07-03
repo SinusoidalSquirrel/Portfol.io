@@ -172,6 +172,7 @@ var StockModel = Backbone.Model.extend({
       values.date = new Date(snapshot.date);
       values.value = context.getValue(index);
       values.symbol = snapshot.symbol;
+      console.log(values)
       return values;
     });
   },
