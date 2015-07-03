@@ -27,6 +27,7 @@ var AppView = Backbone.View.extend({
                               <li><a href="#portfolios">My Portfolios</a></li> \
                               <li><a href="#new">New Portfolio</a></li> \
                               <li><a href="#about">About Us</a></li> \
+                              <li><a href="#compare">Compare to Gurus</a></li> \
                             </ul> \
                           </div> \
                         </nav> \
@@ -36,8 +37,8 @@ var AppView = Backbone.View.extend({
     this.formView = new FormView({collection: this.collection});
     this.dashboardView = new DashboardView({collection: this.collection});
     this.playerDashboardView = new PlayerDashboardView({collection: this.collection});
-    this.compareViewP = new CompareViewPage();  //Bryan: Added CompareViewPage.
     this.graphOverview = new GraphDashboardView({collection: this.collection});
+    this.compareViewP = new CompareViewPage({collection: new Gurus()});  //Bryan: Added CompareViewPage.
     this.aboutusView = new AboutUsView();
     this.signupView = new SignupView({model: this.model});
     this.signinView = new SigninView({model: this.model});
