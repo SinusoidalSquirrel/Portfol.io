@@ -1,5 +1,6 @@
 var GraphOverView = Backbone.View.extend({
 
+    // url: '/api/stocks'
 
     className: 'graphoverview',
 
@@ -13,16 +14,16 @@ var GraphOverView = Backbone.View.extend({
     },
 
      events:{
-    'click #stock': 'graph',
+    'click #stock': 'apiCall',
     'focus #visualtxtSymbolLookup': 'search'
     },
     // render: function(){
     //   this.graph();
     //   // return this.$el.html(this.graph());
     // },
+
     search: function(){
       $(document).ready(function(){
-                  console.log("hello");
        $( "#visualtxtSymbolLookup" ).autocomplete({
             source: function( request, response ) {
               $.ajax({
@@ -52,54 +53,37 @@ var GraphOverView = Backbone.View.extend({
       })
     },
 
-    graph: function(){
-    console.log(document.getElementById('visualtxtSymbolLookup').value)
-        var chartData1 = [];
-        var chartData2 = [];
-        var chartData3 = [];
-        var chartData4 = [];
+
+    apiCall: function(){
+      $.ajax({
+        url: '/api/jstocks',
+        type: 'POST',
+        data: {symbol: document.getElementById('visualtxtSymbolLookup').value, from:'2005-01-01', to: new Date(), period: 'd'},
+        success: this.graph
+    })
+    },
 
 
-        function generateChartData() {
-          var firstDate = new Date();
-          firstDate.setDate( firstDate.getDate() - 500 );
-          firstDate.setHours( 0, 0, 0, 0 );
+    graph: function(data){
+    console.log(data.length)
+    var chartData1 = [];
+// data[0].date
+         function generateChartData() {
+           var firstDate = new Date();
+           firstDate.setDate( firstDate.getDate() - data.length );
+           firstDate.setHours( 0, 0, 0, 0 );
 
-          for ( var i = 0; i < 500; i++ ) {
-            var newDate = new Date( firstDate );
-            newDate.setDate( newDate.getDate() + i );
+           for ( var i = 0; i < data.length; i++ ) {
+             var newDate = new Date( firstDate );
+             newDate.setDate( newDate.getDate() + i );
 
-            var a1 = Math.round( Math.random() * ( 40 + i ) ) + 100 + i;
-            var b1 = Math.round( Math.random() * ( 1000 + i ) ) + 500 + i * 2;
-
-            var a2 = Math.round( Math.random() * ( 100 + i ) ) + 200 + i;
-            var b2 = Math.round( Math.random() * ( 1000 + i ) ) + 600 + i * 2;
-
-            var a3 = Math.round( Math.random() * ( 100 + i ) ) + 200;
-            var b3 = Math.round( Math.random() * ( 1000 + i ) ) + 600 + i * 2;
-
-            var a4 = Math.round( Math.random() * ( 100 + i ) ) + 200 + i;
-            var b4 = Math.round( Math.random() * ( 100 + i ) ) + 600 + i;
+            var a1 = data[i].adjClose;
+            var b1 = data[i].volume;
 
             chartData1.push( {
               date: newDate,
               value: a1,
               volume: b1
-            } );
-            chartData2.push( {
-              date: newDate,
-              value: a2,
-              volume: b2
-            } );
-            chartData3.push( {
-              date: newDate,
-              value: a3,
-              volume: b3
-            } );
-            chartData4.push( {
-              date: newDate,
-              value: a4,
-              volume: b4
             } );
           }
         }
@@ -110,7 +94,7 @@ var GraphOverView = Backbone.View.extend({
           "theme": "light",  
 
           dataSets: [ {
-              title: "first data set",
+              title: data[0].symbol,
               fieldMappings: [ {
                 fromField: "value",
                 toField: "value"
@@ -121,45 +105,6 @@ var GraphOverView = Backbone.View.extend({
               dataProvider: chartData1,
               categoryField: "date"
             },
-
-            {
-              title: "second data set",
-              fieldMappings: [ {
-                fromField: "value",
-                toField: "value"
-              }, {
-                fromField: "volume",
-                toField: "volume"
-              } ],
-              dataProvider: chartData2,
-              categoryField: "date"
-            },
-
-            {
-              title: "third data set",
-              fieldMappings: [ {
-                fromField: "value",
-                toField: "value"
-              }, {
-                fromField: "volume",
-                toField: "volume"
-              } ],
-              dataProvider: chartData3,
-              categoryField: "date"
-            },
-
-            {
-              title: "fourth data set",
-              fieldMappings: [ {
-                fromField: "value",
-                toField: "value"
-              }, {
-                fromField: "volume",
-                toField: "volume"
-              } ],
-              dataProvider: chartData4,
-              categoryField: "date"
-            }
           ],
 
           panels: [ {

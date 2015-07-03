@@ -124,6 +124,7 @@ app.post('/stocks', function(req, res) {
 
 app.use('/api/stocks', handler.getStocks);
 
+app.use('/api/jstocks', handler.getJStocks);
 
 var port = process.env.PORT || 8080;
 
