@@ -7,8 +7,11 @@ var CompareViewPage = Backbone.View.extend({
     <div> watatawtaweta </div>',
 
     initialize: function(){
-      this.render();
       this.saveGuruUser();
+      this.collection.on('rerender', function() {
+        console.log("created NEW GURU");
+        this.render();
+      }, this);
     },
 
     render: function(){
@@ -16,7 +19,15 @@ var CompareViewPage = Backbone.View.extend({
       // for (var i = 0; i < guruList.length; i++){
       //   console.log('guru', guruList[i].username)
       // }
-      return this.$el.html(this.divText);
+
+      this.$el.children().empty();
+      this.delegateEvents();
+      var headerText = '<h1 class="info-view-title text-center">GURU list</h1>';
+      this.$el.html(headerText).append(
+        this.collection.map(function(model){
+          return new CompareView({model: model}).render();
+        })
+      );
     },
 
     saveGuruUser: function(){
@@ -26,24 +37,12 @@ var CompareViewPage = Backbone.View.extend({
           type: 'POST',
           data: null,
           success: function(data) {
-            data.forEach(function (guru) {
-              $.ajax({
-                url: '/guruportfolio',
-                type: 'POST',
-                data: {id: guru.id},
-                success: function(res){
-                  console.log("res is,", res);
-
-                  stocks.create({
-                      'name': guru.username,
-                      'stocks': res,
-                  });
-                }
-              });
-
-            });
+            for (var i = 0; i < data.length; i ++){
+              gurus.add({'id': data[i].id, 'name': data[i].username, 'portfolio': [], 'stocks': [] })
+            }
           }
         });
+
     },
 
 

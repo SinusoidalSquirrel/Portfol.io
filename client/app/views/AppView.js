@@ -27,6 +27,7 @@ var AppView = Backbone.View.extend({
                               <li><a href="#portfolios">My Portfolios</a></li> \
                               <li><a href="#new">New Portfolio</a></li> \
                               <li><a href="#about">About Us</a></li> \
+                              <li><a href="#compare">Compare to Gurus</a></li> \
                             </ul> \
                           </div> \
                         </nav> \

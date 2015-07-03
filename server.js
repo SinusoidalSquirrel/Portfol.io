@@ -13,8 +13,8 @@ var User = require('./db/models/user');
 var Stocks = require('./db/collections/stocks');
 var Stock = require('./db/models/stock');
 var Portfolio = require('./db/models/portfolio');
-
 var GuruInit = require('./GuruInit.js');
+var async = require('async');
 
 var Investment = require('./db/models/investment');
 
@@ -136,10 +136,17 @@ app.post('/gurulist', function(req, res) {
   });
 });
 
-app.get('/guruportfolio', function(req, res) {
-  var userid = req.body.id;
-  new Portfolio().query('where', 'users_id', '=', userid).fetchAll().then(function(portfolio_id) {
-    res.send(portfolio_id);
+app.post('/guruportfolios', function(req, res) {
+  var id = req.body.id;
+  new Portfolio().query('where', 'users_id', '=', id).fetchAll().then(function(portfolios) {
+    res.send(portfolios);
+  });
+});
+
+app.post('/gurustocks', function(req, res) {
+  var id = req.body.id;
+  new Stock().query('where', 'portfolios_id', '=', id).fetchAll().then(function(stocks) {
+    res.send(stocks);
   });
 });
 
