@@ -12,8 +12,7 @@ var PlayerPortfolioView = Backbone.View.extend({
                 <div class="col-md-3"><strong>Price/Share</strong></div>\
                 <div class="col-md-3"><strong>Total</strong></div>\
               </div>\
-            </div>\
-            <div id="chartdiv"></div>',
+            </div>',
 
   initialize: function() {
     this.render();

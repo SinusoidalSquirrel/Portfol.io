@@ -2,6 +2,8 @@
 var PlayerDashboardView = Backbone.View.extend({
 	className: 'dashboard dashboardTop container-fluid',
 
+	divText: '<div id="chartdiv"></div>',
+
 	initialize: function(){
 		// initialize all the views that will be appended to the dashboard view
 		this.playerFormView = new PlayerFormView({
@@ -19,7 +21,7 @@ var PlayerDashboardView = Backbone.View.extend({
 			this.playerFormView.$el,
 			this.playerFormView.playerInfoView.$el,
 			this.playerPortfolioView.$el,
-			this.pieChartView.$el
+			this.divText,
 		])
 	}
 
