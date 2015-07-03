@@ -14,7 +14,7 @@ var CompareView = Backbone.View.extend({
     for (var i = 0; i < this.model.attributes.stocks.length; i++){
       viewpage += '<tr><td>'+ this.model.attributes.stocks[i].symbol + '</td><td>'+ this.model.attributes.stocks[i].shares  +'</td></tr>';
     }
-    viewpage += '<div class="pie col-xs-12 col-md-8"></div> '
+    viewpage += '<div class="pie col-xs-12 col-md-8 gurucharts"></div>';
     var chart = this.pieChart(this.model.attributes.stocks, this);
     return this.$el.html(this.template(this.model.attributes)).append(viewpage);
   },
