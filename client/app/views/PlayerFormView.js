@@ -1,6 +1,6 @@
-// Backbone view for the player input form
+// Backbone view for the player dashboard
 var PlayerFormView = Backbone.View.extend({
-  className: 'form container',
+  className: 'player-info-view col-xs-12 col-md-6 text-center form container',
 
   divText: '\
     <div class="container"> \
@@ -48,6 +48,7 @@ var PlayerFormView = Backbone.View.extend({
     </div>',
 
   initialize: function(){
+    this.username = null;
     this.render();
     this.collection.on('destroy', function() {
       this.$('.error-message').text('Invalid Stock Ticker');
@@ -106,14 +107,12 @@ var PlayerFormView = Backbone.View.extend({
     }
   },
 
+
   handleSet: function(e){
     e.preventDefault;
-    if(this.$('form')[0].checkValidity()){
-      var investment = this.$('#amount').val();
-      console.log(investment);
-    }else{
-      this.$('form')[0].reset();
-    }
+    var investment = this.$('#amount').val();
+    console.log(investment);
+    this.trigger('setInv', investment);
     this.$('#amount').val('');
   },
 

@@ -8,6 +8,9 @@ var User = db.Model.extend({
   portfolios: function() {
     return this.hasMany(Portfolio);
   },
+  investments: function() {
+    return this.hasMany(Investment);
+  },
   initialize: function(){
     this.on('creating', this.hashPassword);
   },

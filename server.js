@@ -13,10 +13,10 @@ var User = require('./db/models/user');
 var Stocks = require('./db/collections/stocks');
 var Stock = require('./db/models/stock');
 var Portfolio = require('./db/models/portfolio');
+
 var GuruInit = require('./GuruInit.js');
 
-
-
+var Investment = require('./db/models/investment');
 
 var app = express();
 app.use(session({
@@ -106,6 +106,14 @@ app.post('/portfolios', function(req, res) {
   var id = req.user.id;
   new Portfolio({'name': name, 'users_id': id}).save().then(function(newPortfolio) {
     res.send(newPortfolio);
+  });
+});
+
+app.post('/investments', function(req, res) {
+  var amount = req.body.amount;
+  new Investment({'amount': amount}).save().then(function(newInvestment) {
+    console.log(newInvestment);
+    res.send(newInvestment);
   });
 });
 

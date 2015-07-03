@@ -62,6 +62,8 @@ var AppView = Backbone.View.extend({
     this.playerDashboardView.playerPortfolioView.delegateEvents();
     this.graphOverview.delegateEvents();
 
+    this.playerDashboardView.playerInfoView.delegateEvents();
+
     var navbar = $(this.navDiv);
     if (this.model.get('signedin')) {
       navbar = this.template(this.model.attributes);
@@ -70,7 +72,9 @@ var AppView = Backbone.View.extend({
       navbar,
       view.$el,
       this.dashboardView.$el
+
       // this.graphOverview.$el
+
     ]);
   },
 
