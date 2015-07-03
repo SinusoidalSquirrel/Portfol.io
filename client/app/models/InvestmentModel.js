@@ -10,7 +10,7 @@ var InvestmentModel = Backbone.Model.extend({
         amount: this.get('investment')
       },
       success: function(res) {
-        consoe.log(res);
+        console.log(res);
       },
       error: function(error) {
         console.log(error.responseText);

@@ -66,6 +66,7 @@ var PlayerFormView = Backbone.View.extend({
   },
 
   handleAdd: function(e){
+    console.log("This is added!");
     e.preventDefault;
     if(this.$('form')[1].checkValidity()){
       var d = new Date();
@@ -111,8 +112,7 @@ var PlayerFormView = Backbone.View.extend({
   handleSet: function(e){
     e.preventDefault;
     var investment = this.$('#amount').val();
-    console.log(investment);
-    this.trigger('setInv', investment);
+    this.collection.trigger('setInv', investment);
     this.$('#amount').val('');
   },
 

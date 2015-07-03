@@ -5,6 +5,9 @@ var Portfolio = db.Model.extend({
   hasTimestamps: true,
   user: function() {
     return this.belongsTo(User, 'user_id');
+  },
+  stocks: function () {
+	 return this.hasMany(Stock);
   }
 });
 

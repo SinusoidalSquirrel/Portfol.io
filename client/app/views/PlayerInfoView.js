@@ -16,28 +16,27 @@ var PlayerInfoView = Backbone.View.extend({
     this.collection.on('sync edited remove reset', this.render, this);
   },
 
-  events:{
-    'setInv': 'render'
-  },
-
   // render: function(){
   //   return this.$el.html(this.template(this.model.attributes));
   // }
 
   render: function(param) {
-    console.log(param);
     this.$el.empty();
     this.delegateEvents();
 
     var purchased = 0;
+    var investment = param || 0;
     this.collection.map(function(item) {
       purchased += (Math.round(item.get('shares')) * Math.round(item.get('price')));
     });
+    var remaining = investment - purchased;
+    console.log("Purchased: " + purchased);
+    console.log("Remaining: " + remaining);
 
     return this.$el.html(this.template(
       {
       'purchased': purchased,
-      'remaining': param
+      'remaining': remaining
       }
     ));
   }
