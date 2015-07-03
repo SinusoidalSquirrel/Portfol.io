@@ -161,7 +161,11 @@ var GraphOverView = Backbone.View.extend({
 
           periodSelector: {
             position: "left",
-            periods: [ {
+            periods: [{
+              period: "DD",
+              count: 7,
+              label: "1 week"
+            }, {
               period: "MM",
               selected: true,
               count: 1,
