@@ -37,7 +37,7 @@ var PieChartView = Backbone.View.extend({
       render: function() {
         this.$el.hide();
         this.$el.empty();
-        if (this.collection.length > 0) {  
+        if (this.collection.length > 0) {
           this.$el.show();
           this.pieChart(this.collection, this);
           return this.$el;

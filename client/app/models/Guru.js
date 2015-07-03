@@ -39,7 +39,7 @@ var Guru = Backbone.Model.extend({
           storage.id = data[i].id;
           stocks.push(storage);
         }
-        this.set('stocks', JSON.stringify(stocks));
+        this.set('stocks', stocks);
       }
     })
   },
