@@ -21,6 +21,7 @@ var PlayerStockView= Backbone.View.extend({
   },
 
   render: function() {
+    this.delegateEvents();
     return this.$el.html(this.template(this.model.attributes));
   }
 

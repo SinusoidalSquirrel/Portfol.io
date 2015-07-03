@@ -1,6 +1,6 @@
 // Backbone view for the player dashboard
 var PlayerFormView = Backbone.View.extend({
-  className: 'player-info-view col-xs-12 col-md-6 text-center form container',
+  className: 'player-form-view col-xs-12 col-md-6 text-center form container',
 
   divText: '\
     <div class="container"> \
@@ -48,11 +48,15 @@ var PlayerFormView = Backbone.View.extend({
     </div>',
 
   initialize: function(){
-    this.username = null;
+    this.playerInfoView = new PlayerInfoView({
+      collection: this.collection,
+      model: this.model
+    });
     this.render();
     this.collection.on('destroy', function() {
       this.$('.error-message').text('Invalid Stock Ticker');
     }, this);
+    console.log(this.model);
   },
 
   // TODO: Add event handlers
@@ -66,6 +70,7 @@ var PlayerFormView = Backbone.View.extend({
   },
 
   handleAdd: function(e){
+    console.log("This is added!");
     e.preventDefault;
     if(this.$('form')[1].checkValidity()){
       var d = new Date();
@@ -111,13 +116,19 @@ var PlayerFormView = Backbone.View.extend({
   handleSet: function(e){
     e.preventDefault;
     var investment = this.$('#amount').val();
-    console.log(investment);
-    this.trigger('setInv', investment);
+    // new InvestmentModel({investment: investment});
+    this.model.set('investment', investment);
+    // this.collection.trigger('setInv', investment);
     this.$('#amount').val('');
   },
 
   render: function(){
-    return this.$el.html(this.divText);
+    this.$el.html(this.divText);
+    // return this.playerInfoView.render().appendTo(this.$('.dashboardTop'));
+    // return this.$el.html([
+    //   this.divText,
+    //   this.playerInfoView.$el
+    // ]);
   }
 
 });
