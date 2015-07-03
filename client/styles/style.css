@@ -253,6 +253,13 @@ text.tag {
   font-style: black;
   float: right;
 }     
+
+#graphdiv {
+  /*visibility: hidden;*/
+  width : 100%;
+  height  : 500px;
+  float: left;
+}                     
 /*boilerplate to show scroll bar*/
 ::-webkit-scrollbar {
   -webkit-appearance: none;

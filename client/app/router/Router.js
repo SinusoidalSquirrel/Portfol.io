@@ -9,7 +9,8 @@ var AppRouter = Backbone.Router.extend({
     'about' : 'about',
     'new' : 'new',
     'signout' : 'signout',
-    'game' : 'game'
+    'game' : 'game',
+    'overview': 'overview'
   }
 
 });
