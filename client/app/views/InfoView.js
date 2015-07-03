@@ -1,7 +1,7 @@
 // Backbone view for stock information
 var InfoView = Backbone.View.extend({
 
-  className: 'col-xs-12 col-md-5 text-center',
+  className: 'col-xs-12 col-md-5 text-center main-info',
 
 
   template: _.template('<div class="info-item row">\
