@@ -1,11 +1,11 @@
 var db = require('../config');
 
-var Portfolio = db.Model.extend({
-  tableName: 'portfolios',
+var Investment = db.Model.extend({
+  tableName: 'investments',
   hasTimestamps: true,
   user: function() {
     return this.belongsTo(User, 'user_id');
   }
 });
 
-module.exports = Portfolio;
+module.exports = Investment;

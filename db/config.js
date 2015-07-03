@@ -61,4 +61,18 @@ db.knex.schema.hasTable('stocks').then(function(exists) {
   }
 });
 
+db.knex.schema.hasTable('investments').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('investments', function (investment) {
+      investment.increments('id').primary();
+      investment.integer('users_id').unsigned().references('id').inTable('users');
+      investment.integer('amount', 255);
+      investment.timestamps();
+    }).then(function (table) {
+      console.log('Created Table', table);
+    });
+  }
+});
+
 module.exports = db;
+

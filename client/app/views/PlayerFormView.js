@@ -48,6 +48,7 @@ var PlayerFormView = Backbone.View.extend({
     </div>',
 
   initialize: function(){
+    this.username = null;
     this.render();
     this.collection.on('destroy', function() {
       this.$('.error-message').text('Invalid Stock Ticker');
@@ -106,11 +107,15 @@ var PlayerFormView = Backbone.View.extend({
     }
   },
 
+  setUsername: function(name) {
+    this.username = name;
+  },
+
   handleSet: function(e){
     e.preventDefault;
     if(this.$('form')[0].checkValidity()){
       var investment = this.$('#amount').val();
-      
+      new InvestmentModel({investment: investment});
     }else{
       this.$('form')[0].reset();
     }

@@ -5,7 +5,7 @@ var PlayerInfoView = Backbone.View.extend({
   template: _.template('\
             <div class="well text-center investment-info">\
               <div class="stock-summary">\
-                <div class="investment-data investment-remaining"> <strong>Investment Remaining</strong>: $<%= remaining.toFixed(0) %></div>\
+                <div class="investment-data investment-remaining"> <strong>Investment Remaining</strong>: $<%= purchased.toFixed(0) %></div>\
                 <div class="investment-data stock-purchased"> <strong>Total Stock Purchased</strong>: $<%= purchased.toFixed(0) %></div>\
               </div>\
             </div>\
@@ -36,7 +36,6 @@ var PlayerInfoView = Backbone.View.extend({
     return this.$el.html(this.template(
       {
       'purchased': purchased
-      'remaining': remaining
       }
     ));
   }
