@@ -48,11 +48,15 @@ var PlayerFormView = Backbone.View.extend({
     </div>',
 
   initialize: function(){
-    this.username = null;
+    this.playerInfoView = new PlayerInfoView({
+      collection: this.collection,
+      model: this.model
+    });
     this.render();
     this.collection.on('destroy', function() {
       this.$('.error-message').text('Invalid Stock Ticker');
     }, this);
+    console.log(this.model);
   },
 
   // TODO: Add event handlers
@@ -112,12 +116,17 @@ var PlayerFormView = Backbone.View.extend({
   handleSet: function(e){
     e.preventDefault;
     var investment = this.$('#amount').val();
-    this.collection.trigger('setInv', investment);
+    // new InvestmentModel({investment: investment});
+    this.model.set('investment', investment);
+    // this.collection.trigger('setInv', investment);
     this.$('#amount').val('');
   },
 
   render: function(){
-    return this.$el.html(this.divText);
+    return this.$el.html([
+      this.divText,
+      this.playerInfoView.$el
+    ]);
   }
 
 });
