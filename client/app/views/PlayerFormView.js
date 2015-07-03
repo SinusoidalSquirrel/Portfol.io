@@ -119,7 +119,6 @@ var PlayerFormView = Backbone.View.extend({
   },
 
   handleDuplicates: function(params) {
-    console.log(params);
     var stocks = this.collection;
     var existingStock = stocks.findStock(params.symbol);
     var startDate = new Date(params.from);
