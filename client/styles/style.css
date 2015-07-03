@@ -56,7 +56,7 @@ table {
 #select-form {
   background-color: #222;
   color: white;
-  z-index: 1000;
+  z-index: 0;
 }
 
 label {
@@ -86,6 +86,7 @@ label {
 /* Info view */
 
 .info-view {
+  visibility: hidden;
   height: 304px;
   overflow-y: scroll;
   border: 1px solid #d3d3d3;
@@ -208,6 +209,7 @@ label {
 
 /*d3 plot styles*/
 .graph {
+  visibility: hidden;
   background-color: #FFFBFF;
   float: right;
   border: 1px solid #d3d3d3;
@@ -247,6 +249,8 @@ text.tag {
 }
 
 #chartdiv {  
+  z-index: 1;
+  top: -50px;
   width   : 50%;
   height    : 500px;
   font-size : 20px;
@@ -272,7 +276,7 @@ text.tag {
 }
 
 .player-info-view {
-  height: 490px;
+  height: 410px;
 }
 
 .investment-info{

@@ -12,7 +12,8 @@ var PlayerPortfolioView = Backbone.View.extend({
                 <div class="col-md-3"><strong>Price/Share</strong></div>\
                 <div class="col-md-3"><strong>Total</strong></div>\
               </div>\
-            </div>',
+            </div>\
+            <div id="chartdiv"></div>',
 
   initialize: function() {
     this.render();
@@ -23,27 +24,9 @@ var PlayerPortfolioView = Backbone.View.extend({
 
   },
 
-  // savePortfolio: function() {
-  //   var portfolioName = this.$('#pname').val();
-  //   if (this.username) {
-  //     new PortfolioModel({collection: this.collection, name: portfolioName});
-  //     this.$('.info-view-title').text('Summary: ' + portfolioName);
-  //     this.$('#pname').val('');
-  //     this.renderSuccess(portfolioName);
-  //   } else {
-  //     this.showSignin();
-  //   }
-  // },
-
   numberWithCommas: function(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   },
-
-  // renderSuccess: function(name) {
-  //   this.$('.error-message').text('');
-  //   this.$('.save-button-wrapper').addClass('success-message');
-  //   this.$('.success-message').html('Success! Portfolio <strong>' + name + '</strong> has been saved.');
-  // },
 
   render: function() {
     this.$el.hide();

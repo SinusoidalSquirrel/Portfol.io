@@ -8,17 +8,9 @@ var PlayerDashboardView = Backbone.View.extend({
 			collection: this.collection,
 			model: new InvestmentModel()
 		});
-		// this.playerInfoView = new PlayerInfoView({
-		// 	collection: this.collection,
-		// 	model: new InvestmentModel()
-		// });
+		this.pieChartView = new PieChartView({collection: this.collection});
 		this.playerPortfolioView = new PlayerPortfolioView({collection: this.collection});
 		this.render();
-		// this.collection.on('setInv', this.render, this);
-		// this.collection.on('setInv', function(param){
-		// 	this.playerInfoView.render(param);
-		// }, this);
-
 	},
 
 
@@ -26,7 +18,8 @@ var PlayerDashboardView = Backbone.View.extend({
 		return this.$el.html([
 			this.playerFormView.$el,
 			this.playerFormView.playerInfoView.$el,
-			this.playerPortfolioView.$el
+			this.playerPortfolioView.$el,
+			this.pieChartView.$el
 		])
 	}
 

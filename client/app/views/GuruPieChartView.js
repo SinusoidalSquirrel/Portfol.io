@@ -31,4 +31,6 @@ var GuruPieChartView = Backbone.View.extend({
           });
           console.log(Stocks)
 
+  }
+
 });
