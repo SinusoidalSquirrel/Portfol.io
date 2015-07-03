@@ -18,10 +18,6 @@ var GuruInit = require('./GuruInit.js');
 
 var Investment = require('./db/models/investment');
 
-
-
-
-
 var app = express();
 app.use(session({
   secret: 'SPLEWT',

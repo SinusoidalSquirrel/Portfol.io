@@ -21,12 +21,7 @@ var PlayerStockView= Backbone.View.extend({
   },
 
   render: function() {
-    return this.$el.html(this.template(
-      _.extend(this.model.attributes, {
-      'final': this.model.getEndVal(), 
-      'percentage': Math.round(((this.model.getEndVal()/this.model.getStartVal()) - 1)*100)
-      })
-    ));
+    return this.$el.html(this.template(this.model.attributes));
   }
 
 });

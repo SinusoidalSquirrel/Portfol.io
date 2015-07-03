@@ -107,18 +107,12 @@ var PlayerFormView = Backbone.View.extend({
     }
   },
 
-  setUsername: function(name) {
-    this.username = name;
-  },
 
   handleSet: function(e){
     e.preventDefault;
-    if(this.$('form')[0].checkValidity()){
-      var investment = this.$('#amount').val();
-      new InvestmentModel({investment: investment});
-    }else{
-      this.$('form')[0].reset();
-    }
+    var investment = this.$('#amount').val();
+    console.log(investment);
+    this.trigger('setInv', investment);
     this.$('#amount').val('');
   },
 

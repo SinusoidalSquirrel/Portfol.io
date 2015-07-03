@@ -5,7 +5,7 @@ var PlayerInfoView = Backbone.View.extend({
   template: _.template('\
             <div class="well text-center investment-info">\
               <div class="stock-summary">\
-                <div class="investment-data investment-remaining"> <strong>Investment Remaining</strong>: $<%= purchased.toFixed(0) %></div>\
+                <div class="investment-data investment-remaining"> <strong>Investment Remaining</strong>: $<%= remaining %></div>\
                 <div class="investment-data stock-purchased"> <strong>Total Stock Purchased</strong>: $<%= purchased.toFixed(0) %></div>\
               </div>\
             </div>\
@@ -17,25 +17,27 @@ var PlayerInfoView = Backbone.View.extend({
   },
 
   events:{
-
+    'setInv': 'render'
   },
 
   // render: function(){
   //   return this.$el.html(this.template(this.model.attributes));
   // }
 
-  render: function() {
+  render: function(param) {
+    console.log(param);
     this.$el.empty();
     this.delegateEvents();
 
     var purchased = 0;
-    var stocks = this.collection.map(function(item) {
+    this.collection.map(function(item) {
       purchased += (Math.round(item.get('shares')) * Math.round(item.get('price')));
     });
 
     return this.$el.html(this.template(
       {
-      'purchased': purchased
+      'purchased': purchased,
+      'remaining': param
       }
     ));
   }

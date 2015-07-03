@@ -2,7 +2,6 @@
 var InvestmentModel = Backbone.Model.extend({
 
   initialize: function(){
-	  var collection = this.get('collection');
 
 	  $.ajax({
       url: '/investments',
@@ -11,7 +10,7 @@ var InvestmentModel = Backbone.Model.extend({
         amount: this.get('investment')
       },
       success: function(res) {
-        console.log(res);
+        consoe.log(res);
       },
       error: function(error) {
         console.log(error.responseText);
