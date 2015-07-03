@@ -1,6 +1,6 @@
 // Backbone view for the player dashboard
 var PlayerDashboardView = Backbone.View.extend({
-	className: 'dashboard container-fluid',
+	className: 'dashboard dashboardTop container-fluid',
 
 	initialize: function(){
 		// initialize all the views that will be appended to the dashboard view
@@ -25,7 +25,7 @@ var PlayerDashboardView = Backbone.View.extend({
 	render: function(){
 		return this.$el.html([
 			this.playerFormView.$el,
-			// this.playerInfoView.$el,
+			this.playerFormView.playerInfoView.$el,
 			this.playerPortfolioView.$el
 		])
 	}

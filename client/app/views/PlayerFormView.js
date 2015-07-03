@@ -1,6 +1,6 @@
 // Backbone view for the player dashboard
 var PlayerFormView = Backbone.View.extend({
-  className: 'player-info-view col-xs-12 col-md-6 text-center form container',
+  className: 'player-form-view col-xs-12 col-md-6 text-center form container',
 
   divText: '\
     <div class="container"> \
@@ -123,10 +123,12 @@ var PlayerFormView = Backbone.View.extend({
   },
 
   render: function(){
-    return this.$el.html([
-      this.divText,
-      this.playerInfoView.$el
-    ]);
+    this.$el.html(this.divText);
+    // return this.playerInfoView.render().appendTo(this.$('.dashboardTop'));
+    // return this.$el.html([
+    //   this.divText,
+    //   this.playerInfoView.$el
+    // ]);
   }
 
 });

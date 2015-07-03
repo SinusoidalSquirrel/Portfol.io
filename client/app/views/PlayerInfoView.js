@@ -33,9 +33,6 @@ var PlayerInfoView = Backbone.View.extend({
       purchased += (Math.round(item.get('shares')) * Math.round(item.get('price')));
     });
     var remaining = investment - purchased;
-    console.log("Purchased: " + purchased);
-    console.log("Remaining: " + remaining);
-
     return this.$el.html(this.template(
       {
       'purchased': purchased,
