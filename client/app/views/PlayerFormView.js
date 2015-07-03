@@ -27,10 +27,6 @@ var PlayerFormView = Backbone.View.extend({
       <div class="row"> \
         <div class="col-sm-6 well text-center" id="select-form">\
           <form data-toggle="validator" role="form">\
-            <div class="form-group"> \
-              <label for="date">Investment Date</label>\
-              <input pattern="^(?!.*00/).*$" type="date" id="date" class="form-control" data-error="Invalid Date" required>\
-            </div> \
             <label for="symbol">Stock</label>\
             <div class="form-group"> \
               <input pattern="[a-zA-Z0-9-]{1,6}" maxlength="6" type="text" id="symbol" class="form-control" placeholder="Symbol" data-error="Invalid Stock Ticker" required>\
@@ -76,7 +72,8 @@ var PlayerFormView = Backbone.View.extend({
       var d = new Date();
       var requestStock = {
         symbol: this.$('#symbol').val().toUpperCase(),
-        from: this.$('#date').val(),
+        // from: this.$('#date').val(),
+        from: new Date(new Date().setYear(new Date().getFullYear() - 3)),
         shares: this.$('#shares').val(),
         to: d.toISOString().slice(0, 10)
       };

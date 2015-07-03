@@ -7,8 +7,8 @@ var PlayerInfoView = Backbone.View.extend({
   template: _.template('\
             <div class="well text-center investment-info">\
               <div class="stock-summary">\
-                <div class="investment-data investment-remaining"> <strong>Investment Remaining</strong>: $<%= remaining %></div>\
-                <div class="investment-data stock-purchased"> <strong>Total Stock Purchased</strong>: $<%= purchased.toFixed(0) %></div>\
+                <div class="investment-data investment-remaining"> <strong>Investment Remaining</strong>: $<%= this.numberWithCommas(remaining) %></div>\
+                <div class="investment-data stock-purchased"> <strong>Total Stock Purchased</strong>: $<%= this.numberWithCommas(purchased.toFixed(0)) %></div>\
               </div>\
             </div>\
             <button type="submit" id="submitBtn" class="btn btn-primary btn-block submit-button">Invest</button>'),
@@ -19,12 +19,11 @@ var PlayerInfoView = Backbone.View.extend({
     this.model.on("change:investment",_.bind(this.render,this));
   },
 
-  // render: function(){
-  //   return this.$el.html(this.template(this.model.attributes));
-  // }
+  numberWithCommas: function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  },
 
   render: function() {
-    console.log("Triggered!");
     this.$el.empty();
     this.delegateEvents();
     var purchased = 0;
