@@ -26,9 +26,9 @@ var BarGraphView = Backbone.View.extend({
     var gurus = ['buffett', 'icahn', 'soros','gates', 'you'];
 
     // var competitors = [5, 10, -20, 30, -50];
-    var competitors = [5, -20, -30, 40, 16];
+    var competitors = [20, -20, -30, 40, 16];
 
-    var width = 800, height = 640;
+    var width = 900, height = 640;
     var barHeight = height/5;
 
     var min = Math.min.apply(null, competitors);
@@ -86,7 +86,7 @@ var BarGraphView = Backbone.View.extend({
     bar.append("text")
         // .attr("x", function(d) { return x(d) - 20; })
         .attr("x", function(d) { if (d < 0)
-                                  { return x(d + 8); }
+                                  { return x(d + 14); }
                                  else
                                   { return x(d) - offset; } })
         // .attr("x", function(d) { if (d < 0)
