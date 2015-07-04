@@ -24,10 +24,10 @@ var CompareViewPage = Backbone.View.extend({
       this.$el.children().empty();
       this.delegateEvents();
       var headerText = '<h1 class="info-view-title text-center">GURU list</h1>';
-      this.$el.html(headerText).append([
+      this.$el.html(headerText).append(this.barGraphView.$el).append(
         this.collection.map(function(model){
           return new CompareView({model: model}).render();
-        }), this.barGraphView.$el ]
+        })
       );
     },
 

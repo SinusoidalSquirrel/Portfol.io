@@ -9,7 +9,7 @@ var BarGraphView = Backbone.View.extend({
     this.render();
     // this.collection.on('sync edited remove reset', this.render, this);
     var context = this;
-    $(window).on("resize", function() {
+    $(window).on("click", function() {
       context.render.apply(context);
     });
   },
