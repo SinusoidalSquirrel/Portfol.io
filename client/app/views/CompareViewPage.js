@@ -7,6 +7,7 @@ var CompareViewPage = Backbone.View.extend({
     <div> watatawtaweta </div>',
 
     initialize: function(){
+      this.barGraphView = new BarGraphView({collection: this.collection});
       this.saveGuruUser();
       this.collection.on('rerender', function() {
         console.log("created NEW GURU");
@@ -23,10 +24,10 @@ var CompareViewPage = Backbone.View.extend({
       this.$el.children().empty();
       this.delegateEvents();
       var headerText = '<h1 class="info-view-title text-center">GURU list</h1>';
-      this.$el.html(headerText).append(
+      this.$el.html(headerText).append([
         this.collection.map(function(model){
           return new CompareView({model: model}).render();
-        })
+        }), this.barGraphView.$el ]
       );
     },
 

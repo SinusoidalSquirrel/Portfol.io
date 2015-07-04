@@ -6,7 +6,8 @@ var BarGraphView = Backbone.View.extend({
   className: 'barGraph col-xs-12 col-md-7',
 
   initialize: function() {
-    this.collection.on('sync edited remove reset', this.render, this);
+    this.render();
+    // this.collection.on('sync edited remove reset', this.render, this);
     var context = this;
     $(window).on("resize", function() {
       context.render.apply(context);
@@ -27,7 +28,7 @@ var BarGraphView = Backbone.View.extend({
     // var competitors = [5, 10, -20, 30, -50];
     var competitors = [5, -20, -30, 40, 16];
 
-    var width = 500, height = 220;
+    var width = 800, height = 640;
     var barHeight = height/5;
 
     var min = Math.min.apply(null, competitors);
@@ -126,11 +127,11 @@ var BarGraphView = Backbone.View.extend({
   render: function() {
     this.$el.hide();
     this.$el.empty();
-    if (this.collection.length > 0) {  
+    // if (this.collection.length > 0) {  
       this.$el.show();
       this.plotBars(this.collection, this);
       return this.$el;
-    }
+    // }
   }
 
 });
