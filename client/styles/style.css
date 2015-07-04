@@ -297,3 +297,7 @@ text.tag {
   border-radius: 4px;
   padding: 15px;
 }
+
+.barGraph{
+  margin-left: 25%;
+}
