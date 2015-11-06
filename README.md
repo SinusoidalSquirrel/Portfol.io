@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: Paul Sokolik
-  - __Scrum Master__: Tamara Woodson
-  - __Development Team Members__: Edwin Lin
+  - __Product Owner__: Bryan Liu
+  - __Scrum Master__: Jack McDevitt
+  - __Development Team Members__: Stacy Huang & John Paulino
 
 ## Table of Contents
 
